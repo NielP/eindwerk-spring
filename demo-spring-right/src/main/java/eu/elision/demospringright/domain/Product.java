@@ -1,16 +1,16 @@
 package eu.elision.demospringright.domain;
 
 import eu.elision.demospringright.dto.ProductDTO;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-@jakarta.persistence.Entity
+import static jakarta.persistence.GenerationType.IDENTITY;
+
+@Entity
 @Table(name = "Products")
 @Getter
 @Setter
@@ -20,9 +20,9 @@ import java.util.Objects;
 @AllArgsConstructor
 public class Product {
 
-    @jakarta.persistence.Id
-    @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private ObjectId id;
     private String name;
     private Double price;
     private String ean;
@@ -32,17 +32,6 @@ public class Product {
     @Builder.Default
     private List<Order> orders = new ArrayList<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
-            return false;
-        }
-        Product product = (Product) o;
-        return id != null && Objects.equals(id, product.id);
-    }
 
     @Override
     public int hashCode() {

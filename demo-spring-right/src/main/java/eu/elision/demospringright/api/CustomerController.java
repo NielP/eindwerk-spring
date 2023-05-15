@@ -3,6 +3,7 @@ package eu.elision.demospringright.api;
 import eu.elision.demospringright.dto.CustomerDTO;
 import eu.elision.demospringright.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public CustomerDTO getCustomer(@PathVariable("id") Long id) {
+    public CustomerDTO getCustomer(@PathVariable("id") ObjectId id) {
         return customerService.findById(id);
     }
 
@@ -30,7 +31,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCustomer(@PathVariable("id") Long id) {
+    public void deleteCustomer(@PathVariable("id") ObjectId id) {
         customerService.delete(id);
     }
 }

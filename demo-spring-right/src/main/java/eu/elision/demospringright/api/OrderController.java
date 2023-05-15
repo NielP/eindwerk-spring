@@ -3,7 +3,7 @@ package eu.elision.demospringright.api;
 import eu.elision.demospringright.dto.OrderDTO;
 import eu.elision.demospringright.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
+import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public OrderDTO getOrder(@PathVariable("id") Long id) {
+    public OrderDTO getOrder(@PathVariable("id") ObjectId id) {
         return orderService.findById(id);
     }
 
@@ -31,7 +31,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOrder(@PathVariable("id") Long id) {
+    public void deleteOrder(@PathVariable("id") ObjectId id) {
         orderService.delete(id);
     }
 }

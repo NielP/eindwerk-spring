@@ -3,6 +3,7 @@ package eu.elision.demospringright.service;
 import eu.elision.demospringright.dto.CustomerDTO;
 import eu.elision.demospringright.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ public class CustomerService {
                 .collect(Collectors.toList());
     }
 
-    public CustomerDTO findById(Long id) {
+    public CustomerDTO findById(ObjectId id) {
         return customerRepository.findById(id)
                 .map(eu.elision.demospringright.domain.Customer::toCustomerDTO)
                 .orElseThrow();
@@ -34,7 +35,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(ObjectId id) {
         customerRepository.deleteById(id);
     }
 }

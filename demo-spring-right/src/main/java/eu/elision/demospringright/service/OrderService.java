@@ -3,6 +3,7 @@ package eu.elision.demospringright.service;
 import eu.elision.demospringright.dto.OrderDTO;
 import eu.elision.demospringright.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,7 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public OrderDTO findById(Long id) {
+    public OrderDTO findById(ObjectId id) {
         return orderRepository.findById(id)
                 .map(eu.elision.demospringright.domain.Order::toOrderDTO)
                 .orElseThrow();
@@ -33,7 +34,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(ObjectId id) {
         orderRepository.deleteById(id);
     }
 }

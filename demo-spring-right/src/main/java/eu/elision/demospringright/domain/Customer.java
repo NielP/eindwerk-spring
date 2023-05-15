@@ -3,11 +3,12 @@ package eu.elision.demospringright.domain;
 import eu.elision.demospringright.dto.CustomerDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
+import org.bson.types.ObjectId;
 
 import java.util.Objects;
 import java.util.Set;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static javax.persistence.CascadeType.ALL;
 
 @jakarta.persistence.Entity
@@ -21,8 +22,8 @@ import static javax.persistence.CascadeType.ALL;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = IDENTITY)
+    private ObjectId id;
 
     private String firstName;
     private String lastName;
@@ -31,18 +32,6 @@ public class Customer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     @ToString.Exclude
     private Set<Order> orders;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
-            return false;
-        }
-        Customer customer = (Customer) o;
-        return id != null && Objects.equals(id, customer.id);
-    }
 
     @Override
     public int hashCode() {

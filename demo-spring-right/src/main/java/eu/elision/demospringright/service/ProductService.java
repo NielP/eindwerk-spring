@@ -3,6 +3,7 @@ package eu.elision.demospringright.service;
 import eu.elision.demospringright.dto.ProductDTO;
 import eu.elision.demospringright.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public ProductDTO findById(Long id) {
+    public ProductDTO findById(ObjectId id) {
         return productRepository.findById(id)
                 .map(eu.elision.demospringright.domain.Product::toProductDTO)
                 .orElseThrow();
@@ -34,7 +35,7 @@ public class ProductService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(ObjectId id) {
         productRepository.deleteById(id);
     }
 }

@@ -3,14 +3,15 @@ package eu.elision.demospringright.domain;
 import eu.elision.demospringright.dto.OrderDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.Hibernate;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-@jakarta.persistence.Entity
+import static jakarta.persistence.GenerationType.IDENTITY;
+
+@Entity
 @Table(name = "Orders")
 @Getter
 @Setter
@@ -20,9 +21,9 @@ import java.util.Objects;
 @AllArgsConstructor
 public class Order {
 
-    @jakarta.persistence.Id
-    @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private ObjectId id;
 
     private LocalDateTime createTime;
 
@@ -36,18 +37,6 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
     @Builder.Default
     private List<Product> products = new ArrayList<>();
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
-            return false;
-        }
-        Order order = (Order) o;
-        return id != null && Objects.equals(id, order.id);
-    }
 
     @Override
     public int hashCode() {
